@@ -7,7 +7,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const cors = require("cors");
-
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const fsPromise = require("../utils/fsPromise");
 const { getNetworkIp } = require("../utils/ip");
 
@@ -24,6 +24,34 @@ app.use("/static", express.static(path.join(__dirname, "../site")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+
+app.use('/api/v1/sessions', createProxyMiddleware({
+  target: process.env.AUTH_URL || 'https://accounts.newdev.ddl.io/',
+  pathRewrite: {
+      '^/api/v1/sessions': '/1/sessions'
+  },
+  headers: accountsProxyHeaders,
+  changeOrigin: true
+}))
+
+app.use('/api/v1/users', createProxyMiddleware({
+  target: process.env.AUTH_URL || 'https://accounts.newdev.ddl.io/',
+  pathRewrite: {
+      '^/api/v1/users': '/1/users'
+  },
+  headers: accountsProxyHeaders,
+  changeOrigin: true
+}))
+
+app.use('/api/v1/reset_user_password', createProxyMiddleware({
+  target: process.env.AUTH_URL || 'https://accounts.newdev.ddl.io/',
+  pathRewrite: {
+      '^/api/v1/reset_user_password': '/1/reset_user_password'
+  },
+  headers: accountsProxyHeaders,
+  changeOrigin: true
+}))
+
 
 app.get("/", (req, res) => {
   res.render(path.join(__dirname, "../templates/main.ejs"), {

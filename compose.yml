@@ -9,5 +9,7 @@ services:
         GITHUB_USER: ${GITHUB_USER}
         GITHUB_TOKEN: ${GITHUB_TOKEN}
     container_name: vector_web_setup
+    environment:
+      - AUTH_URL=https://accounts.escapepod.xyz
     ports:
       - 8080:8080

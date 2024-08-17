@@ -2,7 +2,7 @@
   "stacks": {
     "prod": {
       "accountEndpoints": "https://accounts.escapepod.xyz",
-      "apiKeys": "2AySCv8w2RGhcFwq3QxBu8f"
+      "apiKeys": "admin"
     }
   }
 }

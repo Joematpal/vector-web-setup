@@ -572,7 +572,7 @@ function doCloudLogin(inputUsername, inputPassword) {
   let p = new Promise(function (resolve, reject) {
     $.ajax({
       type: "POST",
-      url: _stack.getAccountEndpoints() + "/1/sessions",
+      url: "/api/1/sessions",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
       },
@@ -596,7 +596,7 @@ function doPasswordReset(inputEmail) {
   let p = new Promise(function (resolve, reject) {
     $.ajax({
       type: "POST",
-      url: _stack.getAccountEndpoints() + "/1/reset_user_password",
+      url: "/api/1/reset_user_password",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
       },
@@ -619,7 +619,7 @@ function createAccount(inputEmail, inputPassword, inputDob) {
   let p = new Promise(function (resolve, reject) {
     $.ajax({
       type: "POST",
-      url: _stack.getAccountEndpoints() + "/1/users",
+      url: "/api/1/users",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
       },
