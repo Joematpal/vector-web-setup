@@ -1,8 +1,8 @@
 {
   "stacks": {
     "prod": {
-      "accountEndpoints": "https://accounts.api.anki.com",
-      "apiKeys": "luyain9ep5phahP8aph8xa"
+      "accountEndpoints": "https://accounts.escapepod.xyz",
+      "apiKeys": "2AySCv8w2RGhcFwq3QxBu8f"
     }
   }
 }

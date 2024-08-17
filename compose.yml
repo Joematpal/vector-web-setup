@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  local_vector_web_setup:
+    network_mode: host
+    build: 
+      no_cache: true
+      context: .
+      args:
+        GITHUB_USER: ${GITHUB_USER}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    container_name: vector_web_setup
+    ports:
+      - 8080:8080
