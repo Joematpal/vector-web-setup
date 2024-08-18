@@ -572,7 +572,7 @@ function doCloudLogin(inputUsername, inputPassword) {
   let p = new Promise(function (resolve, reject) {
     $.ajax({
       type: "POST",
-      url: "/api/1/sessions",
+      url: "/api/v1/sessions",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
       },
@@ -596,7 +596,7 @@ function doPasswordReset(inputEmail) {
   let p = new Promise(function (resolve, reject) {
     $.ajax({
       type: "POST",
-      url: "/api/1/reset_user_password",
+      url: "/api/v1/reset_user_password",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
       },
@@ -619,7 +619,7 @@ function createAccount(inputEmail, inputPassword, inputDob) {
   let p = new Promise(function (resolve, reject) {
     $.ajax({
       type: "POST",
-      url: "/api/1/users",
+      url: "/api/v1/users",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
       },
@@ -1017,6 +1017,7 @@ $("#btnConnectCloud").click(function () {
 
   doCloudLogin(cloudUsername, cloudPassword).then(
     function (data) {
+      console.log("data", data)
       cloudSession.sesionToken = data.session.session_token;
 
       rtsHandler.doAnkiAuth(cloudSession.sesionToken).then(function (msg) {

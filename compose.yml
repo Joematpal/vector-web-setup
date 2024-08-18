@@ -11,5 +11,6 @@ services:
     container_name: vector_web_setup
     environment:
       - AUTH_URL=https://accounts.escapepod.xyz
+      - APP_KEY=admin
     ports:
       - 8080:8080

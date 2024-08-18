@@ -19,39 +19,53 @@ let port = undefined;
 let networkIp = getNetworkIp();
 let serverIp = undefined;
 
+const accountsProxyHeaders = {
+  'Anki-App-Key': 'admin'
+}
+const accountsHost = "http://localhost:8080"
+
 app.set("view engine", "ejs");
-app.use("/static", express.static(path.join(__dirname, "../site")));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use('/api/v1/sessions', createProxyMiddleware({
-  target: process.env.AUTH_URL || 'https://accounts.newdev.ddl.io/',
+  target: accountsHost,
   pathRewrite: {
-      '^/api/v1/sessions': '/1/sessions'
+    '^/api/v1/sessions': '/1/sessions'
+  },
+  onProxyReq: function onProxyReq(proxyReq, req, res) {
+    // Log outbound request to remote target
+    console.log('-->  ', req.method, req.path, '->', proxyReq.baseUrl + proxyReq.path);
+  },
+  onProxyResp: (pr, req, res) => {
+    console.log("--> ", req.method, req.path, req.baseUrl)
+    console.log("--> ", res)
   },
   headers: accountsProxyHeaders,
   changeOrigin: true
 }))
 
 app.use('/api/v1/users', createProxyMiddleware({
-  target: process.env.AUTH_URL || 'https://accounts.newdev.ddl.io/',
+  target: accountsHost,
   pathRewrite: {
-      '^/api/v1/users': '/1/users'
+    '^/api/v1/users': '/1/users'
   },
   headers: accountsProxyHeaders,
   changeOrigin: true
 }))
 
 app.use('/api/v1/reset_user_password', createProxyMiddleware({
-  target: process.env.AUTH_URL || 'https://accounts.newdev.ddl.io/',
+  target: accountsHost,
   pathRewrite: {
-      '^/api/v1/reset_user_password': '/1/reset_user_password'
+    '^/api/v1/reset_user_password': '/1/reset_user_password'
   },
   headers: accountsProxyHeaders,
   changeOrigin: true
 }))
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use("/static", express.static(path.join(__dirname, "../site")));
 
 app.get("/", (req, res) => {
   res.render(path.join(__dirname, "../templates/main.ejs"), {
