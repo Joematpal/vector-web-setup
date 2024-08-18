@@ -22,7 +22,7 @@ let serverIp = undefined;
 const accountsProxyHeaders = {
   'Anki-App-Key': 'admin'
 }
-const accountsHost = "http://localhost:8000"
+const accountsHost = "http://0.0.0.0:8000"
 
 app.set("view engine", "ejs");
 app.use(cors());

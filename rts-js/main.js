@@ -214,8 +214,8 @@ function parseURL(url) {
 
 function getOtasPresent(env) {
   return new Promise((resolve, reject) => {
-    $.ajax({
-      type: "POST",
+    fetch({
+      method: "POST",
       url: `http://${_serverIp}:${_serverPort}/firmware`,
       data: {
         env: env,
@@ -570,8 +570,8 @@ handleRtsHandshake.receive = function (data) {
 function doCloudLogin(inputUsername, inputPassword) {
   let self = this;
   let p = new Promise(function (resolve, reject) {
-    $.ajax({
-      type: "POST",
+    fetch({
+      methods: "POST",
       url: "/api/v1/sessions",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
@@ -594,8 +594,8 @@ function doCloudLogin(inputUsername, inputPassword) {
 
 function doPasswordReset(inputEmail) {
   let p = new Promise(function (resolve, reject) {
-    $.ajax({
-      type: "POST",
+    fetch({
+      method: "POST",
       url: "/api/v1/reset_user_password",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
@@ -617,8 +617,8 @@ function doPasswordReset(inputEmail) {
 
 function createAccount(inputEmail, inputPassword, inputDob) {
   let p = new Promise(function (resolve, reject) {
-    $.ajax({
-      type: "POST",
+    fetch({
+      method: "POST",
       url: "/api/v1/users",
       headers: {
         "Anki-App-Key": _stack.getApiKeys(),
