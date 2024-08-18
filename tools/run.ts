@@ -30,7 +30,7 @@ app.use(cors());
 app.use('*', async (req, res, next) => {
 
   console.log("idk what is going on.....")
-  console.log("--> ", req.method, req.path, req.baseUrl, req.)
+  console.log("--> ", req.method, req.path, req.baseUrl)
 
   next()
 })
