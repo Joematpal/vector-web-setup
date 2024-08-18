@@ -22,10 +22,18 @@ let serverIp = undefined;
 const accountsProxyHeaders = {
   'Anki-App-Key': 'admin'
 }
-const accountsHost = "http://localhost:8080"
+const accountsHost = "http://localhost:8000"
 
 app.set("view engine", "ejs");
 app.use(cors());
+
+app.use('*', async (req, res, next) => {
+
+  console.log("idk what is going on.....")
+  console.log("--> ", req.method, req.path, req.baseUrl)
+
+  next()
+})
 
 app.use('/api/v1/sessions', createProxyMiddleware({
   target: accountsHost,
