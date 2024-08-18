@@ -30,7 +30,7 @@ app.use(cors());
 app.use('*', async (req, res, next) => {
 
   console.log("idk what is going on.....")
-  console.log("--> ", req.method, req.path, req.baseUrl)
+  console.log("--> ", req.method, req.path, req.baseUrl, req.)
 
   next()
 })
@@ -58,6 +58,7 @@ app.use('/api/v1/users', createProxyMiddleware({
     '^/api/v1/users': '/1/users'
   },
   headers: accountsProxyHeaders,
+
   changeOrigin: true
 }))
 
